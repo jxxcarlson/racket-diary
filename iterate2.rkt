@@ -11,7 +11,6 @@
    [else (iterate2 f (- n 1) step (+ step a) (f (+ step a) b))]
    ))
 
-
 ;; Image functions
 
 (define (place-circle x y image)
