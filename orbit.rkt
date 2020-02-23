@@ -8,9 +8,9 @@
 (define (orbit f n a) (orbit-aux f n (list a)))
 
 (define (orbit-aux f n a)
-  (cond
-   [(= n 0) a]
-   [else (orbit-aux f (- n 1) (cons (f (car a)) a))]
+  (if (= n 0)
+      a
+      (orbit-aux f (- n 1) (cons (f (car a)) a))
    ))
 
 ;; Example
@@ -21,21 +21,29 @@
 
 
 ;; Compute orbit, stopping when a predicate is satisfied
-(define (orbit-predicate f n a) (orbit-predicate-aux f n (list a)))
+(define (orbit-until f predicate a) (orbit-until-aux f predicate (list a)))
 
-(define (orbit-predicate-aux f predicate a)
-  (cond
-   [(predicate a) a]
-   [else (orbit-predicate-aux f predicate (cons (f (car a)) a))]
+(define (orbit-until-aux f predicate a)
+  (if (predicate a)
+   a
+  (orbit-until-aux f predicate (cons (f (car a)) a))
    ))
 
 ;; Example
 
-(define (isOne x) (= (car x) 1))
+(define (head-is-one x) (= (car x) 1))
 
 (define (crazy n)
   (if (= 0 (remainder n 2))
       (quotient n 2)
       (+ 1 (* 3 n))))
 
-(reverse (orbit-predicate crazy isOne 33))
+(reverse (orbit-until crazy head-is-one 33))
+
+(define (test n) (reverse (orbit-until crazy head-is-one n)))
+
+(define (test-length n) (length (test n)))
+
+(define (test-range a b) (map test (range a b)))
+
+
