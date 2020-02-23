@@ -1,7 +1,5 @@
 #lang racket
 (require 2htdp/image)
-(require 2htdp/universe)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Iteration: functions of two variables
